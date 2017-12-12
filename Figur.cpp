@@ -2,8 +2,8 @@
 
 CFigur::CFigur()
 {
-//	*m_life = 100;
-//	m_demage = 15;
+	
+	m_pSpriteShot = NULL;
 	m_pSpriteFigur = NULL;
 }
 
@@ -14,23 +14,23 @@ CFigur::~CFigur()
 }
 
 */
-/*
+
 void CFigur::lifebar(int demageG)
 {
-	*m_life -= demageG;
+	m_life -= demageG;
 	
 }
-*/
 
-/*
-bool CFigur::IsAlive()
+
+
+void CFigur::IsAlive()
 {
-	if (*m_life <= 0)
-		return false;
+	if (m_life <= 0)
+		m_isAlive = false;
 	else
-		return true;
+		m_isAlive = true;
 }
-*/
+
 
 //const char *name, int framewidth, int frameheight, int numframes
 
@@ -47,16 +47,22 @@ void CFigur::Init(const char *name, const char *name2,
 		m_pSpriteShot = new CSprite;
 		m_pSpriteShot->load(name2, framewidth2, frameheight2, numframes2);
 	}
+
+
+	m_life = 100;
+	m_demage = 20;
+	m_isAlive = true;
 }
 
 void CFigur::render(int degreePlayer, int degreeShot , int shotdirection, float speedshot)
 {
 
-	//if (IsAlive())
-	//{
+	
+	
+
 	m_pSpriteFigur->pos(m_fxPos, m_fyPos);
 	m_pSpriteFigur->render(m_fanim, SDL_FLIP_HORIZONTAL, NULL, degreePlayer);
-	//}
+
 
 	list<CShot>::iterator i = m_listofshots.begin();
 
@@ -111,6 +117,10 @@ void CFigur::shooting(float firerate)
 
 }
 
-
+void CFigur::ModifyShip(int amor, int canon)
+{
+	m_demage += canon;
+	m_life += amor;
+}
 
 

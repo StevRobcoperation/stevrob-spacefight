@@ -10,6 +10,7 @@ class CPlayer : public CFigur
 		CPlayer();
 		void update();
 		void setstartpos();
+		
 
 	private:
 		void move();

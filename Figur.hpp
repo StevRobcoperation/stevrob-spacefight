@@ -21,10 +21,12 @@ class CFigur
 				int frameheight, int frameheight2,
 				int numframes, int numframes2); 
 		void render(int degreePlayer , int degreeShot , int shotdirection, float speedshot);
-//		void lifebar(int deamgeG);
-//		bool IsAlive();				
-//		int *getdeamge() { return &m_demage; } 
-		void Destroy();  
+		void lifebar(int deamgeG);
+		void IsAlive();				
+		int *getdeamge() { return &m_demage; } 
+		bool *getalive() { return &m_isAlive; }
+		void Destroy(); 
+		void ModifyShip(int armor, int canon);
 		list<CShot> *Getlist() { return &m_listofshots; } //Neu Neu
 		
 
@@ -33,8 +35,9 @@ class CFigur
 	protected:
 		virtual void shooting(float firerate);
 
-//		int *m_life;
-//		int m_demage;
+		int m_life;
+		int m_demage;
+		bool m_isAlive;
 		CSprite *m_pSpriteShot;
 		float m_fxPos;				
 		float m_fyPos;				

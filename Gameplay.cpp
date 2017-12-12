@@ -14,6 +14,7 @@ void CGameplay::Init()
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Init("Data/Player.bmp", "Data/Laser.bmp",64, 64, 64, 64, 11, 0);
 	m_pPlayer->setstartpos();
+	m_pPlayer->ModifyShip(100, 30);
   
 	m_pBackground = new CSprite;
 	m_pBackground->load("Data/Background.bmp");
@@ -69,12 +70,15 @@ void CGameplay::Run()
 
 		m_pBackground->render();
 
-		m_pPlayer->update();
-		m_pPlayer->render(90, 90, 90, 400.0f);
+		if (m_pPlayer->getalive())
+		{
+			m_pPlayer->update();
+			m_pPlayer->render(90, 90, 90, 400.0f);
+		}
 
-		m_pEnemy->Update();
-		m_pEnemy->render(-90, -90, 270, 250.0f);
-
+			m_pEnemy->Update();
+			m_pEnemy->render(-90, -90, 270, 250.0f);
+		
 		
 
 		pFramework->Render();
