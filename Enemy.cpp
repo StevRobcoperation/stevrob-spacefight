@@ -9,6 +9,8 @@ CEnemy::CEnemy()
 
 void CEnemy::Update()
 {
+	IsAlive();
+
 	move();
 
 	shooting(1.5f);
@@ -22,6 +24,8 @@ void CEnemy::setstartpos(float fxPos, float fyPos)
 	m_fxPos = fxPos;
 	m_fyPos = fyPos;
 	m_fanim = 5.0f;
+	m_Rect.x = static_cast<int>(m_fxPos);
+	m_Rect.y = static_cast<int>(m_fyPos);
 	m_move = true;
 }
 
@@ -34,6 +38,9 @@ void CEnemy::move()
 	}
 	else
 		m_fyPos += 150.0f * pTime->Getelapsed();
+	m_Rect.x = static_cast<int>(m_fxPos);
+	m_Rect.y = static_cast<int>(m_fyPos);
+
 }
 
 

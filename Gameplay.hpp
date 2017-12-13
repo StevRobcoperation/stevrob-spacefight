@@ -16,6 +16,7 @@ class CGameplay
 
 	private:
 		void ProcessEvents();
+		void CheckCollisions();
 
 		CPlayer *m_pPlayer;
 		CSprite *m_pBackground;

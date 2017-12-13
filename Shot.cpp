@@ -1,13 +1,17 @@
 #include "Shot.hpp"
 
 
-void CShot::Init(CSprite *pSpriteShot, float fxPos, float fyPos)
+void CShot::Init(CSprite *pSpriteShot, float fxPos, float fyPos, int demage)
 {
 	m_pSpriteShot = pSpriteShot;
 	m_fxPos = static_cast<int> (fxPos);
 	m_fyPos = static_cast<int>(fyPos);
 	m_RectShot.h = pSpriteShot->GetRect().h;
 	m_RectShot.w = pSpriteShot->GetRect().w;
+	m_RectShot.x = static_cast<int>(fxPos);
+	m_RectShot.y = static_cast<int>(fyPos);
+
+	m_demage = demage;
 
 	m_bexist = true;
 }
@@ -45,10 +49,16 @@ void CShot::moving(int shotdirection, float speed)
 	}
 
 	m_RectShot.x = static_cast<int>(m_fxPos);
+	m_RectShot.y = static_cast<int>(m_fyPos);
 
 	if ((m_fxPos > 825.0f) || (m_fxPos < -25.0f))
 		m_bexist = false;
 	
 	if ((m_fyPos > 625.0f) || (m_fyPos < -25.0f))
 		m_bexist = false;
+}
+
+void CShot::setexist(bool x)
+{
+	m_bexist = x;
 }

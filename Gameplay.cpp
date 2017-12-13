@@ -70,16 +70,30 @@ void CGameplay::Run()
 
 		m_pBackground->render();
 
+
+//		cout << "Raumschiff alive: " << m_pEnemy->getalive() << endl;
 		if (m_pPlayer->getalive())
 		{
 			m_pPlayer->update();
 			m_pPlayer->render(90, 90, 90, 400.0f);
 		}
+	
+		if (m_pEnemy != NULL)
+		{
+			if (m_pEnemy->getalive())
+			{
+				m_pEnemy->Update();
+				m_pEnemy->render(-90, -90, 270, 250.0f);
+			}
+			if (!m_pEnemy->getalive())
+			{
+				m_pEnemy->Destroy();
+				delete (m_pEnemy);
+				m_pEnemy = NULL;
+			}
+		}
 
-			m_pEnemy->Update();
-			m_pEnemy->render(-90, -90, 270, 250.0f);
-		
-		
+		CheckCollisions();
 
 		pFramework->Render();
 
@@ -112,4 +126,41 @@ void CGameplay::ProcessEvents()
 			}break;
 		}
 	}
+}
+
+void CGameplay::CheckCollisions()
+{
+	list<CShot> *ShotListP = m_pPlayer->Getlist();
+//	list<CShot> *ShotListE = m_pEnemy->Getlist();
+
+	list<CShot>::iterator It;
+
+	SDL_Rect RectPlayer, RectEnemy, RectShot;
+
+	RectPlayer = m_pPlayer->GetRect();
+	if (m_pEnemy != NULL)
+	{
+		RectEnemy = m_pEnemy->GetRect();
+
+		for (It = ShotListP->begin(); It != ShotListP->end(); ++It)
+		{
+			RectShot = It->GetRect();
+
+			//		cout << "Shot.x: " << RectShot.x << endl;
+			//		cout << "Shot.y: " << RectShot.y << endl;
+			//		cout << "Enemy.y: " << RectEnemy.y << endl;
+
+			if (RectShot.y < RectEnemy.y + RectEnemy.h &&
+				RectShot.y + RectShot.h  > RectEnemy.y &&
+				RectShot.x < RectEnemy.x + RectEnemy.w &&
+				RectShot.x + RectShot.w > RectEnemy.x)
+			{
+				m_pEnemy->lifebar(It->getdemage());
+				It->setexist(false);
+
+				cout << "Life: " << m_pEnemy->life() << endl;
+			}
+		}
+	}
+	
 }

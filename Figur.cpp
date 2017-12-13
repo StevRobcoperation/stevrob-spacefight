@@ -19,6 +19,7 @@ void CFigur::lifebar(int demageG)
 {
 	m_life -= demageG;
 	
+
 }
 
 
@@ -48,6 +49,8 @@ void CFigur::Init(const char *name, const char *name2,
 		m_pSpriteShot->load(name2, framewidth2, frameheight2, numframes2);
 	}
 
+	m_Rect.h = m_pSpriteFigur->GetRect().h;
+	m_Rect.w = m_pSpriteFigur->GetRect().w;
 
 	m_life = 100;
 	m_demage = 20;
@@ -61,6 +64,7 @@ void CFigur::render(int degreePlayer, int degreeShot , int shotdirection, float 
 	
 
 	m_pSpriteFigur->pos(m_fxPos, m_fyPos);
+
 	m_pSpriteFigur->render(m_fanim, SDL_FLIP_HORIZONTAL, NULL, degreePlayer);
 
 
@@ -107,7 +111,8 @@ void CFigur::shooting(float firerate)
 	if (xx >= firerate)
 	{
 		CShot Shot;
-		Shot.Init(m_pSpriteShot, m_fxPos, m_fyPos);
+		Shot.Init(m_pSpriteShot, m_fxPos, m_fyPos, m_demage);
+
 
 		m_listofshots.push_back(Shot);
 

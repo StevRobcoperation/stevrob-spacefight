@@ -6,12 +6,14 @@
 class CShot
 {
 	public:
-		void Init(CSprite *pSpriteShot, float fxPos, float fyPos);
+		void Init(CSprite *pSpriteShot, float fxPos, float fyPos, int demage);
 		void render(int degree);
 		int getdemage() { return m_demage; }
 		SDL_Rect GetRect () { return m_RectShot; }
-		void moving(int shotdirection, float speed);															//Fehlt noch
+		void moving(int shotdirection, float speed);
+		void setexist(bool x);
 		bool exist() { return m_bexist; }
+
 
 
 	private:

@@ -22,11 +22,13 @@ class CFigur
 				int numframes, int numframes2); 
 		void render(int degreePlayer , int degreeShot , int shotdirection, float speedshot);
 		void lifebar(int deamgeG);
-		void IsAlive();				
+		void IsAlive();	
+		int life() { return m_life; }					//zu testzewcken
 		int *getdeamge() { return &m_demage; } 
-		bool *getalive() { return &m_isAlive; }
+		bool getalive() { return m_isAlive; }
 		void Destroy(); 
 		void ModifyShip(int armor, int canon);
+		SDL_Rect GetRect() { return m_Rect; }
 		list<CShot> *Getlist() { return &m_listofshots; } //Neu Neu
 		
 
@@ -45,6 +47,7 @@ class CFigur
 		float m_fanim;				
 		list<CShot> m_listofshots;  //Neu Neu
 		float xx;  
+		SDL_Rect m_Rect;
 
 };
 
