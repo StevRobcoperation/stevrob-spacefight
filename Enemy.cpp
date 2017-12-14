@@ -12,6 +12,8 @@ void CEnemy::Update()
 	IsAlive();
 
 	move();
+	
+	CanonPos(1, -20.0f, 11.0f, 0.0f, 0.0f);
 
 	shooting(1.5f);
 

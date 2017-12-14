@@ -5,6 +5,7 @@
 #include"Sprite.hpp"
 #include <list>
 #include "Shot.hpp"
+#include "Canon.hpp"
 
 
 using namespace std;
@@ -20,6 +21,7 @@ class CFigur
 				int framewidth, int framewidth2,
 				int frameheight, int frameheight2,
 				int numframes, int numframes2); 
+		void CanonPos(int num, float fxPos1, float fyPos, float fxPos2, float fyPos2);
 		void render(int degreePlayer , int degreeShot , int shotdirection, float speedshot);
 		void lifebar(int deamgeG);
 		void IsAlive();	
@@ -48,7 +50,8 @@ class CFigur
 		list<CShot> m_listofshots;  //Neu Neu
 		float xx;  
 		SDL_Rect m_Rect;
-
+		list<SCanon> m_listofcanons;
+		int m_NumCanons;
 };
 
 

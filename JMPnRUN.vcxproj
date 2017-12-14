@@ -135,6 +135,7 @@
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Canon.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Figur.hpp" />
     <ClInclude Include="Framework.hpp" />

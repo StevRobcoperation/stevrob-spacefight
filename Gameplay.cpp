@@ -12,7 +12,7 @@ CGameplay::CGameplay()
 void CGameplay::Init()
 {
 	m_pPlayer = new CPlayer;
-	m_pPlayer->Init("Data/Player.bmp", "Data/Laser.bmp",64, 64, 64, 64, 11, 0);
+	m_pPlayer->Init("Data/Player.bmp", "Data/Laser2.bmp",64, 10, 64, 31, 11, 0);
 	m_pPlayer->setstartpos();
 	m_pPlayer->ModifyShip(100, 30);
   
@@ -20,7 +20,7 @@ void CGameplay::Init()
 	m_pBackground->load("Data/Background.bmp");
 
 	m_pEnemy = new CEnemy;
-	m_pEnemy->Init("Data/Player.bmp", "Data/Laser.bmp", 64, 64, 64, 64, 11, 0);
+	m_pEnemy->Init("Data/Player.bmp", "Data/Laser2.bmp", 64, 20, 64, 40, 11, 0);
 	m_pEnemy->setstartpos(700.0f, 268.0f);
 
 	

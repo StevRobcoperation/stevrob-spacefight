@@ -103,22 +103,35 @@ void CFigur::Destroy()
 
 void CFigur::shooting(float firerate)
 {
-	
+
+
+
 
 	xx += pTime->Getelapsed();
-	
+	list<SCanon>::iterator Ca = m_listofcanons.begin();
 
 	if (xx >= firerate)
 	{
-		CShot Shot;
-		Shot.Init(m_pSpriteShot, m_fxPos, m_fyPos, m_demage);
+
+		
+		while (Ca != m_listofcanons.end())
+		{
+	
+			CShot Shot; 
+			Shot.Init(m_pSpriteShot, Ca->fXPosC, Ca->fyPosC, m_demage);
 
 
-		m_listofshots.push_back(Shot);
-
+			m_listofshots.push_back(Shot);
+//			cout << "Wert Ca: " << Ca->fXPosC << endl;
+			Ca++;
+		}
+		
 		xx = 0.0f;
 	}
+	
+	m_listofcanons.clear();
 
+	
 
 }
 
@@ -129,3 +142,24 @@ void CFigur::ModifyShip(int amor, int canon)
 }
 
 
+void CFigur::CanonPos(int num, float fxPos1, float fyPos1, float fxPos2, float fyPos2)
+{
+	
+	m_NumCanons = num;
+
+	int pos[4] = { fxPos1, fyPos1, fxPos2, fyPos2 };
+
+	int counter  = 0;
+
+	for (int i = 0; i < num; i++)
+	{
+		SCanon Canon;
+		Canon.fXPosC = pos[counter] + m_fxPos;
+//		cout << "Counter: " << pos[counter] << endl;
+		counter++;
+		Canon.fyPosC = pos[counter] + m_fyPos;
+//		cout << "Counter2: " << pos[counter] << endl;
+		counter++;
+		m_listofcanons.push_back(Canon);
+	}
+}

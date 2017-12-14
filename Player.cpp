@@ -103,6 +103,8 @@ void CPlayer::update()
 {
 	move();
 
+	CanonPos(2, 29.0f, -11.0f, 29.0f, 44.0f);
+
 	shooting(0.7f);
 
 	checkposition();
