@@ -32,6 +32,7 @@ class CFigur
 		void ModifyShip(int armor, int canon);
 		SDL_Rect GetRect() { return m_Rect; }
 		list<CShot> *Getlist() { return &m_listofshots; } //Neu Neu
+		void SetAnim(float Anim);
 		
 
 		

@@ -22,6 +22,7 @@ class CGameplay
 		CSprite *m_pBackground;
 		CEnemy *m_pEnemy;
 		bool m_GameRun;
+		float zahler;
 		
 	
 };

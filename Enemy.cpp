@@ -25,7 +25,7 @@ void CEnemy::setstartpos(float fxPos, float fyPos)
 {
 	m_fxPos = fxPos;
 	m_fyPos = fyPos;
-	m_fanim = 5.0f;
+	m_fanim = 0.0f;
 	m_Rect.x = static_cast<int>(m_fxPos);
 	m_Rect.y = static_cast<int>(m_fyPos);
 	m_move = true;

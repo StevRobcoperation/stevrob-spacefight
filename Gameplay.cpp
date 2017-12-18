@@ -20,7 +20,7 @@ void CGameplay::Init()
 	m_pBackground->load("Data/Background.bmp");
 
 	m_pEnemy = new CEnemy;
-	m_pEnemy->Init("Data/Player.bmp", "Data/Laser2.bmp", 64, 20, 64, 40, 11, 0);
+	m_pEnemy->Init("Data/Playerex.bmp", "Data/Laser2.bmp", 64, 20, 64, 40, 3, 0);
 	m_pEnemy->setstartpos(700.0f, 268.0f);
 
 	
@@ -87,9 +87,17 @@ void CGameplay::Run()
 			}
 			if (!m_pEnemy->getalive())
 			{
-				m_pEnemy->Destroy();
-				delete (m_pEnemy);
-				m_pEnemy = NULL;
+				m_pEnemy->SetAnim(1.0f);
+				m_pEnemy->render(-90, -90, 270, 250.0f);
+			
+				zahler += pTime->Getelapsed();
+				if(zahler > 0.3f)
+				{
+					m_pEnemy->Destroy();
+					delete (m_pEnemy);
+					m_pEnemy = NULL;
+					zahler = 0.0f;
+				}
 			}
 		}
 

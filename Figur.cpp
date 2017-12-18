@@ -163,3 +163,9 @@ void CFigur::CanonPos(int num, float fxPos1, float fyPos1, float fxPos2, float f
 		m_listofcanons.push_back(Canon);
 	}
 }
+
+
+void CFigur::SetAnim(float Anim)
+{
+	m_fanim = Anim;
+}
