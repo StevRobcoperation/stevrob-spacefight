@@ -3,6 +3,7 @@
 
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "Menu.hpp"
 
 
 class CGameplay
@@ -21,8 +22,10 @@ class CGameplay
 		CPlayer *m_pPlayer;
 		CSprite *m_pBackground;
 		CEnemy *m_pEnemy;
+		CMenu *m_pMenu;
 		bool m_GameRun;
 		float zahler;
+		bool m_bMenu;
 		
 	
 };

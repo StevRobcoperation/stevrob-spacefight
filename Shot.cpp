@@ -13,6 +13,9 @@ void CShot::Init(CSprite *pSpriteShot, float fxPos, float fyPos, int demage)
 
 	m_demage = demage;
 
+//	cout << "x : " << m_RectShot.x << endl;
+//	cout << "y: " << m_RectShot.y << endl;
+
 	m_bexist = true;
 }
 

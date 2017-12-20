@@ -15,7 +15,7 @@ void CEnemy::Update()
 	
 	CanonPos(1, -20.0f, 11.0f, 0.0f, 0.0f);
 
-	shooting(1.5f);
+	shooting(0.5f);
 
 	checkpos();
 }
@@ -36,10 +36,11 @@ void CEnemy::move()
 {
 	if (m_move == true)
 	{
-		m_fyPos -= 150.0f * pTime->Getelapsed();
+		m_fyPos -= 200.0f * pTime->Getelapsed();
 	}
 	else
-		m_fyPos += 150.0f * pTime->Getelapsed();
+		m_fyPos += 200.0f * pTime->Getelapsed();
+
 	m_Rect.x = static_cast<int>(m_fxPos);
 	m_Rect.y = static_cast<int>(m_fyPos);
 

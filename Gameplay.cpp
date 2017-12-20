@@ -14,7 +14,7 @@ void CGameplay::Init()
 	m_pPlayer = new CPlayer;
 	m_pPlayer->Init("Data/Player.bmp", "Data/Laser2.bmp",64, 10, 64, 31, 11, 0);
 	m_pPlayer->setstartpos();
-	m_pPlayer->ModifyShip(100, 30);
+	m_pPlayer->ModifyShip(0, 5);
   
 	m_pBackground = new CSprite;
 	m_pBackground->load("Data/Background.bmp");
@@ -23,10 +23,12 @@ void CGameplay::Init()
 	m_pEnemy->Init("Data/Playerex.bmp", "Data/Laser2.bmp", 64, 20, 64, 40, 3, 0);
 	m_pEnemy->setstartpos(700.0f, 268.0f);
 
+	m_pMenu = new CMenu;
+	m_pMenu->Init("Data/StartBild.bmp", "Data/PlayButton.bmp", 245, 76);
 	
 
 
-	
+	m_bMenu = true;
 	m_GameRun = true; 
 	
 }
@@ -53,12 +55,17 @@ void CGameplay::Quit()
 		m_pEnemy = NULL;
 	}
 	
+	if (m_pMenu != NULL)
+	{
+		delete(m_pMenu);
+		m_pMenu = NULL;
+	}
 }
 
 void CGameplay::Run()
 {
 
-	
+
 	while (m_GameRun == true)
 	{
 
@@ -67,45 +74,62 @@ void CGameplay::Run()
 
 		pFramework->Update();
 		pFramework->clear();
-
-		m_pBackground->render();
-
-
-//		cout << "Raumschiff alive: " << m_pEnemy->getalive() << endl;
-		if (m_pPlayer->getalive())
+		if (m_bMenu == true)
 		{
-			m_pPlayer->update();
-			m_pPlayer->render(90, 90, 90, 400.0f);
+			m_pMenu->Render();
 		}
-	
-		if (m_pEnemy != NULL)
+		else
 		{
-			if (m_pEnemy->getalive())
+			m_pBackground->render();
+			//	cout << "Raumschiff alive: " << m_pEnemy->getalive() << endl;
+			if (m_pPlayer != NULL)
 			{
-				m_pEnemy->Update();
-				m_pEnemy->render(-90, -90, 270, 250.0f);
-			}
-			if (!m_pEnemy->getalive())
-			{
-				m_pEnemy->SetAnim(1.0f);
-				m_pEnemy->render(-90, -90, 270, 250.0f);
-			
-				zahler += pTime->Getelapsed();
-				if(zahler > 0.3f)
+				if (m_pPlayer->getalive())
 				{
-					m_pEnemy->Destroy();
-					delete (m_pEnemy);
-					m_pEnemy = NULL;
-					zahler = 0.0f;
+					m_pPlayer->update();
+					m_pPlayer->render(90, 90, 90, 400.0f);
+				}
+
+				if (!m_pPlayer->getalive())
+				{
+					m_pPlayer->Destroy();
+					delete (m_pPlayer);
+					m_pPlayer = NULL;
+
 				}
 			}
+
+
+			if (m_pEnemy != NULL)
+			{
+				if (m_pEnemy->getalive())
+				{
+					m_pEnemy->Update();
+					m_pEnemy->render(-90, -90, 270, 300.0f);
+				}
+				if (!m_pEnemy->getalive())
+				{
+					m_pEnemy->SetAnim(1.0f);
+					m_pEnemy->render(-90, -90, 270, 250.0f);
+
+					zahler += pTime->Getelapsed();
+					if (zahler > 0.3f)
+					{
+						m_pEnemy->Destroy();
+						delete (m_pEnemy);
+						m_pEnemy = NULL;
+						zahler = 0.0f;
+
+					}
+				}
+
+				CheckCollisions();
+
+				pFramework->Render();
+
+
+			}
 		}
-
-		CheckCollisions();
-
-		pFramework->Render();
-
-		
 	}
 }
 
@@ -138,37 +162,77 @@ void CGameplay::ProcessEvents()
 
 void CGameplay::CheckCollisions()
 {
-	list<CShot> *ShotListP = m_pPlayer->Getlist();
-//	list<CShot> *ShotListE = m_pEnemy->Getlist();
-
+	
+	
+	
 	list<CShot>::iterator It;
 
-	SDL_Rect RectPlayer, RectEnemy, RectShot;
+	SDL_Rect RectPlayer, RectEnemy, RectShotp, RectShote;
 
-	RectPlayer = m_pPlayer->GetRect();
-	if (m_pEnemy != NULL)
+	
+	if ((m_pEnemy != NULL) && (m_pPlayer != NULL))
 	{
+		list<CShot> *ShotListP = m_pPlayer->Getlist();
+		RectPlayer = m_pPlayer->GetRect();
 		RectEnemy = m_pEnemy->GetRect();
 
 		for (It = ShotListP->begin(); It != ShotListP->end(); ++It)
 		{
-			RectShot = It->GetRect();
+			RectShotp = It->GetRect();
 
-			//		cout << "Shot.x: " << RectShot.x << endl;
+		//			cout << "Shot.x: " << RectShot.x << endl;
 			//		cout << "Shot.y: " << RectShot.y << endl;
-			//		cout << "Enemy.y: " << RectEnemy.y << endl;
+				//	cout << "Enemy.y: " << RectEnemy.y << endl;
 
-			if (RectShot.y < RectEnemy.y + RectEnemy.h &&
-				RectShot.y + RectShot.h  > RectEnemy.y &&
-				RectShot.x < RectEnemy.x + RectEnemy.w &&
-				RectShot.x + RectShot.w > RectEnemy.x)
+			if (RectShotp.y < RectEnemy.y + RectEnemy.h &&
+				RectShotp.y + RectShotp.h  > RectEnemy.y &&
+				RectShotp.x < RectEnemy.x + RectEnemy.w &&
+				RectShotp.x + RectShotp.w > RectEnemy.x)
 			{
 				m_pEnemy->lifebar(It->getdemage());
 				It->setexist(false);
 
-				cout << "Life: " << m_pEnemy->life() << endl;
+//				cout << "Life: " << m_pEnemy->life() << endl;
 			}
 		}
 	}
+
+
 	
+
+	if ((m_pPlayer != NULL) && (m_pEnemy != NULL))
+	{
+		list<CShot> *ShotListE = m_pEnemy->Getlist();
+		RectEnemy = m_pEnemy->GetRect();
+		RectPlayer = m_pPlayer->GetRect();
+	
+		for (It = ShotListE->begin(); It != ShotListE->end(); ++It)
+		{
+			RectShote = It->GetRect();
+
+//			cout << "Shot.x: " << RectShote.x << endl;
+//			cout << "Shot.y: " << RectShote.y << endl;
+
+			if (RectShote.y < RectPlayer.y + RectPlayer.h &&
+				RectShote.y + RectShote.h  > RectPlayer.y &&
+				RectShote.x < RectPlayer.x + RectPlayer.w &&
+				RectShote.x + RectShote.w > RectPlayer.x)
+			{
+				m_pPlayer->lifebar(It->getdemage());
+				It->setexist(false);
+
+//				cout << "demagr gegener: " << It->getdemage() << endl;
+//				cout << "life:" << m_pPlayer->life() << endl;
+
+			}
+
+		}	
+	
+	
+	
+	}
+
+		
+
+
 }

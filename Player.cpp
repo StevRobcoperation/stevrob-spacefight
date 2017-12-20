@@ -21,6 +21,7 @@ void CPlayer::move()
 	{
 		m_fxPos -= 300.0f * pTime->Getelapsed();
 		m_fanim = 5.0f;//20.0f * pTime->Getelapsed();
+		m_Rect.x = m_fxPos;
 		
 	}
 	else if (pFramework->Keydown(SDL_SCANCODE_D))
@@ -32,18 +33,23 @@ void CPlayer::move()
 			m_fyPos += 200.0f * pTime->Getelapsed();
 			m_fxPos += 250.0f *pTime->Getelapsed();
 			m_fanim -= 20.0f * pTime->Getelapsed();
+			m_Rect.x = m_fxPos;
+			m_Rect.y = m_fyPos;
 		}
 		else if (pFramework->Keydown(SDL_SCANCODE_W))
 		{
 			m_fyPos -= 200.0f * pTime->Getelapsed();
 			m_fxPos += 250.0f * pTime->Getelapsed();
 			m_fanim += 20.0f * pTime->Getelapsed();
+			m_Rect.x = m_fxPos;
+			m_Rect.y = m_fyPos;
 
 		}
 		else
 		{
 			m_fxPos += 300.0f * pTime->Getelapsed();
 			m_fanim = 5.0f;//20.0f * pTime->Getelapsed();
+			m_Rect.x = m_fxPos;
 		}
 
 
@@ -52,11 +58,13 @@ void CPlayer::move()
 	{
 		m_fyPos -= 300.0f * pTime->Getelapsed();
 		m_fanim = 5.0f;
+		m_Rect.y = m_fyPos;
 	}
 	else if (pFramework->Keydown(SDL_SCANCODE_S))
 	{
 		m_fyPos += 300.0f * pTime->Getelapsed();
 		m_fanim = 5.0f;
+		m_Rect.y = m_fyPos;
 	}
 	else
 		m_fanim = 5.0f;
@@ -101,6 +109,8 @@ void CPlayer::checkposition()
 
 void CPlayer::update()
 {
+	IsAlive();
+
 	move();
 
 	CanonPos(2, 29.0f, -11.0f, 29.0f, 44.0f);

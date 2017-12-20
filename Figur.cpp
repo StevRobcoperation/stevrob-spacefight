@@ -122,7 +122,8 @@ void CFigur::shooting(float firerate)
 
 
 			m_listofshots.push_back(Shot);
-//			cout << "Wert Ca: " << Ca->fXPosC << endl;
+//			cout << "Wert Cax: " << Ca->fXPosC << endl;
+//			cout << "Wert Cay:" << Ca->fyPosC << endl;
 			Ca++;
 		}
 		
@@ -155,10 +156,10 @@ void CFigur::CanonPos(int num, float fxPos1, float fyPos1, float fxPos2, float f
 	{
 		SCanon Canon;
 		Canon.fXPosC = pos[counter] + m_fxPos;
-//		cout << "Counter: " << pos[counter] << endl;
+//		cout << "Counter: " << m_fxPos << endl;
 		counter++;
 		Canon.fyPosC = pos[counter] + m_fyPos;
-//		cout << "Counter2: " << pos[counter] << endl;
+//		cout << "Counter2: " << m_fyPos << endl;
 		counter++;
 		m_listofcanons.push_back(Canon);
 	}
